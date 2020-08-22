@@ -1,0 +1,24 @@
+{
+  "name": "inhouse-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/petter-kaspersen1/bot.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/petter-kaspersen1/bot/issues"
+  },
+  "homepage": "https://gitlab.com/petter-kaspersen1/bot#readme",
+  "dependencies": {
+    "discord.js": "11.5.1",
+    "dotenv": "^8.2.0"
+  }
+}
