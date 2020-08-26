@@ -8,44 +8,55 @@ const data = require('./data.json');
 const fs = require('fs');
 
 const reactions = {
-  top: {
-    role: 'Toplane',
+  LeagueOfLegends: {
+    role: 'LEGO LEGANDO',
+    id: '746851263689261206',
   },
-  jungle: {
-    role: 'Jungle',
+  AmongUs: {
+    role: 'Among Us',
+    id: '746852188650995763',
   },
-  mid: {
-    role: 'Midlane',
+  Valorant: {
+    role: '(valorant) Counterwatch Weaboo Offensive',
+    id: '746853730929868920',
   },
-  adc: {
-    role: 'ADC',
+  ApexLegends: {
+    role: 'Apex Legends',
+    id: '746855465660448820',
   },
-  support: {
-    role: 'Support',
+  terraria: {
+    role: 'Terraria',
+    id: '746857150571085896',
   },
-  coach: {
-    role: 'Coach',
+  TFT: {
+    role: 'TFT',
+    id: '746860479158288464',
+  },
+  Minecraft: {
+    role: 'Minecraft',
+    id: '746862047752355951',
   },
 };
 
 client.on('ready', async () => {
   console.log(`Bot is ready for action.`);
 
-  const channel = client.channels.get('673268283742617621');
+  const channel = client.channels.get('748138032393355266');
 
   if (!data.hasSentMessage) {
     channel
       .send(
-        `Hi @everyone! \nIf you don't have a role already, react to this message with the role you want, and the bot will add it to you automatically.\n\nIf the bot fails to grant you a role, send a message to <@133542635632721920>`
+        `Hi, @everyone! \nPlease react to this bot to get the chosen role. If the bot fails to assign you a role, feel free to contact one of the head honchos (always ping Yoush). \n\nROLES: \n\n <:AmongUs:746852188650995763> Among Us \n\n<:LeagueOfLegends:746851263689261206> League of Legends \n\n<:Valorant:746853730929868920> Valorant \n\n<:ApexLegends:746855465660448820> Apex Legends \n\n<:terraria:746857150571085896> Terraria \n\n<:TFT:746860479158288464> TFT \n\n<:Minecraft:746862047752355951> Minecraft`
       )
       .then(async (msg) => {
         msg
-          .react('675331270875676703')
-          .then(() => msg.react('675331270884065290'))
-          .then(() => msg.react('675331270858768403'))
-          .then(() => msg.react('675331270846316545'))
-          .then(() => msg.react('675331270514966540'))
-          .then(() => msg.react('675352557920583690'));
+          .react('746852188650995763')
+          .then(() => msg.react('746851263689261206'))
+          .then(() => msg.react('746853730929868920'))
+          .then(() => msg.react('746855465660448820'))
+          .then(() => msg.react('746857150571085896'))
+          .then(() => msg.react('746860479158288464'))
+          .then(() => msg.react('746862047752355951'));
 
         await fs.writeFileSync(
           'data.json',
@@ -60,7 +71,6 @@ client.on('ready', async () => {
         });
       });
   } else {
-    // Get the message sent.
     const {messageId} = data;
 
     channel.fetchMessage(messageId).then((message) => {
@@ -70,9 +80,12 @@ client.on('ready', async () => {
 });
 
 client.on('messageReactionAdd', (reaction, user) => {
+  const file = fs.readFileSync('data.json');
+  const fileJson = JSON.parse(file);
+
   const {message, emoji} = reaction;
 
-  if (message.id !== data.messageId || user.bot) {
+  if (message.id !== fileJson.messageId || user.bot) {
     return;
   }
 
@@ -99,8 +112,11 @@ client.on('messageReactionAdd', (reaction, user) => {
 client.on('messageReactionRemove', (reaction, user) => {
   const {message, emoji} = reaction;
 
+  const file = fs.readFileSync('data.json');
+  const fileJson = JSON.parse(file);
+
   if (
-    message.id !== data.messageId ||
+    message.id !== fileJson.messageId ||
     user.bot ||
     !reactions[reaction.emoji.name]
   ) {
